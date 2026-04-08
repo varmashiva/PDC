@@ -142,7 +142,7 @@ const PreviousWorkshops = () => {
     return (
         <section 
             ref={triggerRef} 
-            className="previous-workshop-section-pin bg-white rounded-2xl w-full h-screen overflow-hidden flex flex-col justify-center relative touch-none mt-8"
+            className="previous-workshop-section-pin bg-white rounded-2xl w-full h-screen overflow-hidden flex flex-col justify-center relative mt-8"
         >
             {/* Grid Background */}
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 

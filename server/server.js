@@ -28,6 +28,8 @@ const io = new Server(server, {
                 'http://localhost:5176',
                 'http://localhost:5177',
                 'http://localhost:5178',
+                'https://pdc-7irb.onrender.com',
+                'https://pdc-zeta.vercel.app',
                 process.env.CLIENT_URL
             ].filter(Boolean);
             if (!origin || allowedOrigins.includes(origin)) {
@@ -51,6 +53,8 @@ const allowedOrigins = [
     'http://localhost:5176',
     'http://localhost:5177',
     'http://localhost:5178',
+    'https://pdc-7irb.onrender.com',
+    'https://pdc-zeta.vercel.app',
     process.env.CLIENT_URL
 ].filter(Boolean);
 

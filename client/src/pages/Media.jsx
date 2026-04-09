@@ -1,87 +1,65 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const videos = [
-    { id: '1', title: 'PDC Workshop Series - Motion Mastery', embedId: 'dQw4w9WgXcQ' },
-    { id: '2', title: 'Behind the Scenes - Gatzara', embedId: 'dQw4w9WgXcQ' },
-    { id: '3', title: 'Creative Directing 101', embedId: 'dQw4w9WgXcQ' }
-];
 
 const Media = () => {
     return (
         <div className="w-full min-h-screen bg-black text-white pt-32 pb-20 px-6 lg:px-10 font-['Outfit']">
-            <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="max-w-7xl mx-auto"
-            >
-                <div className="mb-16">
-                    <span className="text-[0.6rem] font-black text-[#ff1a1a] tracking-widest uppercase mb-4 block">
-                        [ PDC MEDIA ]
-                    </span>
-                    <h1 className="text-5xl md:text-7xl font-black uppercase leading-none">
-                        Our Visual<br />Journey
-                    </h1>
-                </div>
+            <div className="flex flex-col items-center justify-center min-h-[70vh] text-center">
+                <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative"
+                >
+                    {/* Pulsing Glow */}
+                    <motion.div 
+                        animate={{ 
+                            scale: [1, 1.2, 1],
+                            opacity: [0.3, 0.6, 0.3]
+                        }}
+                        transition={{ 
+                            duration: 3, 
+                            repeat: Infinity, 
+                            ease: "easeInOut" 
+                        }}
+                        className="absolute inset-0 bg-[#ff1a1a] rounded-full blur-[100px] z-0"
+                    />
 
-                {/* YouTube Grid */}
-                <div className="mb-20">
-                    <h2 className="text-sm font-bold tracking-widest uppercase text-white/50 mb-8 border-b border-white/10 pb-4">
-                        Masterclasses & Behind the Scenes
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {videos.map((vid, idx) => (
-                            <motion.div 
-                                key={vid.id}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group cursor-pointer"
-                            >
-                                <div className="relative w-full aspect-video bg-white/5 rounded-xl overflow-hidden mb-4 border border-white/10 group-hover:border-white/30 transition-colors">
-                                    <iframe
-                                        width="100%"
-                                        height="100%"
-                                        src={`https://www.youtube.com/embed/${vid.embedId}`}
-                                        title={vid.title}
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                        className="grayscale group-hover:grayscale-0 transition-all duration-700"
-                                    ></iframe>
-                                </div>
-                                <h3 className="text-white text-lg font-bold group-hover:text-[#ff1a1a] transition-colors">{vid.title}</h3>
-                            </motion.div>
-                        ))}
+                    <div className="relative z-10 space-y-6">
+                        <span className="text-[0.7rem] font-black text-[#ff1a1a] tracking-[0.5em] uppercase block animate-pulse">
+                            [ STATUS: IN_PROGRESS ]
+                        </span>
+                        
+                        <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none font-['Outfit'] italic">
+                            WE ARE <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/20">COOKING</span>
+                        </h1>
+
+                        <p className="text-white/40 text-sm md:text-base font-bold uppercase tracking-[0.2em] max-w-sm mx-auto pt-8">
+                            OUR VISUAL ARCHIVE IS CURRENTLY UNDER DEVELOPMENT.
+                        </p>
+
+                        <div className="flex items-center justify-center gap-2 pt-4">
+                            {[0, 1, 2].map((i) => (
+                                <motion.div
+                                    key={i}
+                                    animate={{ 
+                                        y: [0, -10, 0],
+                                        opacity: [0.3, 1, 0.3]
+                                    }}
+                                    transition={{ 
+                                        duration: 1, 
+                                        repeat: Infinity, 
+                                        delay: i * 0.2 
+                                    }}
+                                    className="w-2 h-2 bg-[#ff1a1a] rounded-full"
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
-
-                {/* Instagram Reels Grid Placeholder */}
-                <div>
-                    <h2 className="text-sm font-bold tracking-widest uppercase text-white/50 mb-8 border-b border-white/10 pb-4">
-                        Instagram Highlights
-                    </h2>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                        {[1, 2, 3, 4].map((item, idx) => (
-                            <motion.div 
-                                key={item}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group relative w-full aspect-[9/16] bg-white/5 rounded-xl overflow-hidden border border-white/10"
-                            >
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-white/20 font-bold uppercase tracking-widest text-xs">Reel {item}</span>
-                                </div>
-                                <div className="absolute inset-0 bg-black/50 group-hover:bg-transparent transition-colors duration-500" />
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-
-            </motion.div>
+                </motion.div>
+            </div>
         </div>
     );
 };

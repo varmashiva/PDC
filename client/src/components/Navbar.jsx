@@ -32,8 +32,8 @@ const Navbar = () => {
         : isAuthPage
             ? 'fixed top-0 left-0 right-0 z-50 pb-2 bg-[#ff1a1a] text-white'
             : `fixed top-0 left-0 right-0 z-50 transition-all duration-500 pb-2 ${
-                isSpecialPage ? 'bg-black text-white shadow-2xl' : 'glass text-white'
-              }`;
+            isSpecialPage ? 'bg-black text-white shadow-2xl' : 'glass text-black shadow-sm'
+          }`;
 
     return (
         <header className={containerClasses}>
@@ -45,14 +45,14 @@ const Navbar = () => {
                     
                     {/* Column 1: Slogan */}
                     <div className="flex flex-col items-start justify-start text-[0.60rem] lg:text-[0.65rem] font-bold uppercase tracking-[0.15em] leading-[1.7]">
-                        <span className={`${isHome ? 'text-black/50 mix-blend-difference' : 'text-white/50'}`}>WE DESIGN HIGH</span>
-                        <span className={`${isHome ? 'text-black' : 'text-white'}`}>END EXPERIENCES</span>
+                        <span className={`${isHome || isAuthPage || isSpecialPage ? 'text-white/50' : 'text-black/50'}`}>WE DESIGN HIGH</span>
+                        <span className={`${isHome || isAuthPage || isSpecialPage ? 'text-white' : 'text-black'}`}>END EXPERIENCES</span>
                     </div>
 
                     {/* Column 2: Nav Links Left */}
                     <div className="flex items-center gap-6 justify-center text-[0.60rem] lg:text-[0.65rem] font-bold uppercase tracking-[0.14em]">
                         <div className="flex items-center gap-[4px] hover:opacity-50 transition-opacity cursor-pointer">
-                            <span className={`text-[0.45rem] ${isHome ? 'text-black' : 'text-white'}`}>●</span>
+                            <span className={`text-[0.45rem] ${isHome || isAuthPage || isSpecialPage ? 'text-white' : 'text-black'}`}>●</span>
                             <Link to="/">HOME</Link>
                         </div>
                         <a href="/#philosophy" className="hover:opacity-50 transition-opacity block">
@@ -66,7 +66,7 @@ const Navbar = () => {
                     {/* Column 3: Center Logo */}
                     <div className="flex justify-center flex-col items-center">
                         <Link to="/" className="hover:opacity-80 transition-opacity">
-                            <img src={logo} alt="PDC Logo" className={`h-16 w-auto object-contain ${isHome ? 'invert' : ''}`} />
+                            <img src={logo} alt="PDC Logo" className={`h-16 w-auto object-contain ${isHome || isAuthPage || isSpecialPage ? '' : 'invert'}`} />
                         </Link>
                     </div>
 
@@ -86,9 +86,9 @@ const Navbar = () => {
                             <div className="relative" ref={dropdownRef}>
                                 <button 
                                     onClick={() => setShowDropdown(!showDropdown)}
-                                    className={`flex items-center justify-center w-10 h-10 rounded-full transition-all border ${isHome ? 'bg-black/10 hover:bg-black/20 border-black/20' : 'bg-white/10 hover:bg-white/20 border-white/20'}`}
+                                    className={`flex items-center justify-center w-10 h-10 rounded-full transition-all border ${isHome || isAuthPage || isSpecialPage ? 'bg-white/10 hover:bg-white/20 border-white/20' : 'bg-black/10 hover:bg-black/20 border-black/20'}`}
                                 >
-                                    <User size={16} strokeWidth={2} className={isHome ? 'text-black' : 'text-white'} />
+                                    <User size={16} strokeWidth={2} className={isHome || isAuthPage || isSpecialPage ? 'text-white' : 'text-black'} />
                                 </button>
                                 {showDropdown && (
                                     <div className="absolute top-14 right-0 w-48 bg-[#0a0a0a] border border-white/10 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] py-2 flex flex-col z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
@@ -137,7 +137,7 @@ const Navbar = () => {
                 {/* Mobile Layout */}
                 <div className="lg:hidden flex flex-col items-center justify-center w-full -mt-2">
                     <Link to="/" className="mb-1">
-                        <img src={logo} alt="PDC Logo" className={`h-10 w-auto ${isHome ? 'invert' : ''}`} />
+                        <img src={logo} alt="PDC Logo" className={`h-10 w-auto ${isHome || isAuthPage || isSpecialPage ? '' : 'invert'}`} />
                     </Link>
                     <span className={`text-[0.45rem] font-black tracking-[0.3em] uppercase ${isHome ? 'text-black/40' : 'text-white/40'}`}>
                         DIGITAL & BRAND DESIGN

@@ -32,7 +32,7 @@ function App() {
     <AuthProvider>
       <SmoothScroll>
         <Router>
-          <div className="min-h-screen bg-dark text-light cursor-none">
+          <div className="min-h-screen bg-[#F8F8F8] text-[#111111] cursor-none">
             <CustomCursor />
             <Navbar />
             <LayoutWrapper>

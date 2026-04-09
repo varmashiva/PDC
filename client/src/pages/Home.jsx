@@ -85,8 +85,8 @@ const Home = () => {
                             fontFamily: '"Outfit", sans-serif' 
                         }}
                     >
-                        <span className="block whitespace-nowrap pb-[0.3em]">A global design studio</span>
-                        <span className="block whitespace-nowrap pb-[0.3em]">elevating brands and products</span>
+                        <span className="block whitespace-nowrap pb-[0.3em]">Transforming energy into</span>
+                        <span className="block whitespace-nowrap pb-[0.3em]">performance, one step at a time.</span>
                         <span className="block whitespace-nowrap">
                             through{' '}
                             <span className="relative inline-flex overflow-hidden align-bottom h-[1.1em]">
@@ -165,7 +165,7 @@ const Home = () => {
                     </a>
 
                     <p className="hidden md:block max-w-md text-center text-[#111] font-medium text-xs md:text-sm leading-[1.6] tracking-wide opacity-70 mt-6 md:mt-10">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut.
+                        Prudhvi is driven by rhythm, passion, and an unfiltered love for dance. A constant learner and a powerful choreographer, he blends discipline with creativity.
                     </p>
                 </motion.div>
 

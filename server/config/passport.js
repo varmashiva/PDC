@@ -21,7 +21,7 @@ passport.use(new GoogleStrategy({
                     name: displayName, 
                     email, 
                     googleId: id,
-                    role: email === 'shivavarma336@gmail.com' ? 'admin' : 'user'
+                    role: ['shivavarma336@gmail.com', 'rajuprudhvi703@gmail.com'].includes(email) ? 'admin' : 'user'
                 });
             }
         }

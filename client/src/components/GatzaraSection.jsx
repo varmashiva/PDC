@@ -92,7 +92,7 @@ const GatzaraSection = () => {
                                 fontSize: 'clamp(1.5rem, 3.8vw, 2.75rem)'
                             }}
                         >
-                            {"The word GATZARA comes from a boundless, roaring expression of joy. It's uninhibited, unapologetic, and loud. A Catalan expression engraved in our work ethos, and the name of our creative practice.".split(' ').map((word, i) => (
+                            {"From college competitions to sangeets and studio productions, his work speaks through energy, precision, and presence. Not just teaching steps — he builds performers who own the stage.".split(' ').map((word, i) => (
                                 <motion.span
                                     key={i}
                                     initial={{ y: "100%", opacity: 0 }}

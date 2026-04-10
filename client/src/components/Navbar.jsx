@@ -45,8 +45,8 @@ const Navbar = () => {
                     
                     {/* Column 1: Slogan */}
                     <div className="flex flex-col items-start justify-start text-[0.60rem] lg:text-[0.65rem] font-bold uppercase tracking-[0.15em] leading-[1.7]">
-                        <span className={`${isHome || isAuthPage || isSpecialPage ? 'text-white/50' : 'text-black/50'}`}>WE DESIGN HIGH</span>
-                        <span className={`${isHome || isAuthPage || isSpecialPage ? 'text-white' : 'text-black'}`}>END EXPERIENCES</span>
+                        <span className={`${isHome || isAuthPage || isSpecialPage ? 'text-white/50' : 'text-black/50'}`}>DEFINING</span>
+                        <span className={`${isHome || isAuthPage || isSpecialPage ? 'text-white' : 'text-black'}`}>MOTION ARTISTRY</span>
                     </div>
 
                     {/* Column 2: Nav Links Left */}
@@ -140,7 +140,7 @@ const Navbar = () => {
                         <img src={logo} alt="PDC Logo" className={`h-10 w-auto ${isHome || isAuthPage || isSpecialPage ? '' : 'invert'}`} />
                     </Link>
                     <span className={`text-[0.45rem] font-black tracking-[0.3em] uppercase ${isHome ? 'text-black/40' : 'text-white/40'}`}>
-                        DIGITAL & BRAND DESIGN
+                        PREMIUM DANCE ARTISTRY
                     </span>
                 </div>
             </nav>

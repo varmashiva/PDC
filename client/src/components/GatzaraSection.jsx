@@ -7,18 +7,18 @@ const GatzaraSection = () => {
     const services = [
         { 
             id: '01', 
-            title: 'STRATEGY',
-            content: "We define precise roadmaps that align your vision with market reality, ensuring sustained growth and competitive edge through data-driven insights."
+            title: 'MOVEMENT',
+            content: "We breakdown complex architectural movements into foundational techniques, ensuring every performer builds a solid base of precision and style."
         },
         { 
             id: '02', 
-            title: 'DESIGN',
-            content: "Crafting immersive visual identities and premium user experiences that resonate deeply with your audience, blending aesthetics with functional excellence."
+            title: 'EXPRESSION',
+            content: "Transitioning from steps to storytelling. We focus on channeling raw energy into cinematic performance presence that commands the stage."
         },
         { 
             id: '03', 
-            title: 'TECHNOLOGY',
-            content: "WE IMPLEMENT THE MOST SUITABLE TECH AND DEVELOPMENT FRAMEWORKS TO FUEL INNOVATION, BOOST PERFORMANCE, ENSURE SCALABILITY, AND EASE OF USE."
+            title: 'POTENTIAL',
+            content: "Unlock elite choreography and high-end production standards. From studio sessions to global stages, we prepare you for the highest level of mastery."
         }
     ];
 

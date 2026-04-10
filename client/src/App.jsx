@@ -18,10 +18,10 @@ import CustomCursor from './components/CustomCursor';
 
 function LayoutWrapper({ children }) {
   const { pathname } = useLocation();
-  const isHome = pathname === '/';
+  const isSpecial = pathname === '/' || pathname === '/media';
   
   return (
-    <main className={isHome ? '' : 'pt-32'}>
+    <main className={isSpecial ? '' : 'pt-32'}>
       {children}
     </main>
   );

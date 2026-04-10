@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import Loader from './Loader';
+
 const WorkshopShowcaseSnippet = ({ workshop, index }) => {
     const getOptimizedImageUrl = (url) => {
         if (!url) return '';
@@ -147,7 +149,7 @@ const WorkshopShowcase = () => {
         return () => ctx.revert();
     }, [loading, workshops]);
 
-    if (loading) return null;
+    if (loading) return <Loader />;
 
     if (workshops.length === 0) {
         return (

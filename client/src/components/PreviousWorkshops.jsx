@@ -5,7 +5,12 @@ import api from '../services/api';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import Loader from './Loader';
+
+import { useNavigate } from 'react-router-dom';
+
 const PreviousWorkshopSnippet = ({ workshop, index }) => {
+    const navigate = useNavigate();
     const getOptimizedImageUrl = (url) => {
         if (!url) return '';
         if (url.includes('cloudinary.com')) {
@@ -56,7 +61,10 @@ const PreviousWorkshopSnippet = ({ workshop, index }) => {
                             </div>
                         </div>
                         
-                        <button className="px-6 md:px-10 py-3 md:py-4 bg-white text-black text-[0.6rem] md:text-[0.7rem] font-black uppercase tracking-widest rounded-full hover:bg-[#ff1a1a] hover:text-white transition-all duration-300 transform group-hover:translate-x-2">
+                        <button 
+                            onClick={() => navigate('/media')}
+                            className="px-6 md:px-10 py-3 md:py-4 bg-white text-black text-[0.6rem] md:text-[0.7rem] font-black uppercase tracking-widest rounded-full hover:bg-[#ff1a1a] hover:text-white transition-all duration-300 transform group-hover:translate-x-2"
+                        >
                             VIEW RECAP →
                         </button>
                     </div>
@@ -129,7 +137,7 @@ const PreviousWorkshops = () => {
         return () => ctx.revert();
     }, [loading, workshops]);
 
-    if (loading) return null;
+    if (loading) return <Loader />;
 
     if (workshops.length === 0) {
         return (

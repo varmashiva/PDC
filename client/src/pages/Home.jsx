@@ -68,7 +68,7 @@ const Home = () => {
                     }}
                 >
                     <CircularText 
-                        text=" DIGITAL & BRAND DESIGN - PDC - " 
+                        text=" PRUDHVI DANCE CLUB - DEFINING MOTION - " 
                         radius={560} 
                         fill="#000000"
                     />

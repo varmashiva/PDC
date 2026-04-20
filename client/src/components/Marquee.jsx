@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Marquee = ({ text = "PRUDHVI DANCE CLUB", speed = 40 }) => {
+const Marquee = ({ text = "FEUGO DANCE CLUB", speed = 40 }) => {
     // We duplicate the text multiple times to ensure the screen is filled
     // for the seamless loop to never break.
     const repeatedText = `${text} • `;

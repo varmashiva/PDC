@@ -19,7 +19,7 @@ const Loader = () => {
             </div>
             <div className="mt-8 space-y-2 text-center">
                 <p className="text-[0.6rem] font-black tracking-[0.5em] text-[#ff1a1a] uppercase">Initializing</p>
-                <p className="text-xl font-black uppercase font-['Outfit'] tracking-tighter">PDC Sessions</p>
+                <p className="text-xl font-black uppercase font-['Outfit'] tracking-tighter">FEUGO Sessions</p>
             </div>
         </div>
     );

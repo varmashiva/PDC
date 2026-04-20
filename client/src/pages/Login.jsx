@@ -112,7 +112,7 @@ const Login = () => {
             </div>
             
             <div className="mt-12 text-center text-[0.5rem] font-black uppercase tracking-[0.4em] text-white/10">
-                PDC © {new Date().getFullYear()} Global Operations
+                FEUGO © {new Date().getFullYear()} Global Operations
             </div>
         </div>
     );

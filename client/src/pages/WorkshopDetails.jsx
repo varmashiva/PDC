@@ -43,7 +43,7 @@ const WorkshopDetails = () => {
                 key: import.meta.env.VITE_RAZORPAY_KEY,
                 amount: order.amount,
                 currency: "INR",
-                name: "PDC Sessions",
+                name: "FEUGO Sessions",
                 description: `Booking for ${workshop.title}`,
                 order_id: order.id,
                 handler: async (response) => {
@@ -136,13 +136,13 @@ const WorkshopDetails = () => {
                                     <div className="space-y-1">
                                         <p className="text-[0.6rem] font-bold text-black/40 uppercase tracking-[0.2em]">Location</p>
                                         <p className="text-sm font-black text-[#111] font-['Outfit'] uppercase">
-                                            {workshop.location || 'Studio PDC'}
+                                            {workshop.location || 'Studio FEUGO'}
                                         </p>
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-[0.6rem] font-bold text-black/40 uppercase tracking-[0.2em]">Instructor</p>
                                         <p className="text-sm font-black text-[#111] font-['Outfit'] uppercase">
-                                            {workshop.createdBy?.name || 'PDC Expert'}
+                                            {workshop.createdBy?.name || 'FEUGO Expert'}
                                         </p>
                                     </div>
                                     <div className="space-y-1">
@@ -191,7 +191,7 @@ const WorkshopDetails = () => {
                     <div className="space-y-4">
                         <span className="text-[0.6rem] font-black text-[#ff1a1a] uppercase tracking-widest">01 / Foundation</span>
                         <h3 className="text-2xl font-black uppercase font-['Outfit']">Master the basics</h3>
-                        <p className="text-sm text-black/50 leading-relaxed">Focus on core techniques and foundational movements that define the PDC style. Precision before performance.</p>
+                        <p className="text-sm text-black/50 leading-relaxed">Focus on core techniques and foundational movements that define the FEUGO style. Precision before performance.</p>
                     </div>
                     <div className="space-y-4">
                         <span className="text-[0.6rem] font-black text-[#ff1a1a] uppercase tracking-widest">02 / Expression</span>

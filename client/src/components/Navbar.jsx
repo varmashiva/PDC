@@ -66,7 +66,7 @@ const Navbar = () => {
                     {/* Column 3: Center Logo */}
                     <div className="flex justify-center flex-col items-center">
                         <Link to="/" className="hover:opacity-80 transition-opacity">
-                            <img src={logo} alt="PDC Logo" className={`h-16 w-auto object-contain ${isHome || isAuthPage || isSpecialPage ? '' : 'invert'}`} />
+                            <img src={logo} alt="FEUGO Logo" className={`h-16 w-auto object-contain ${isHome || isAuthPage || isSpecialPage ? '' : 'invert'}`} />
                         </Link>
                     </div>
 
@@ -137,7 +137,7 @@ const Navbar = () => {
                 {/* Mobile Layout */}
                 <div className="lg:hidden flex flex-col items-center justify-center w-full -mt-2">
                     <Link to="/" className="mb-1">
-                        <img src={logo} alt="PDC Logo" className={`h-10 w-auto ${isHome || isAuthPage || isSpecialPage ? '' : 'invert'}`} />
+                        <img src={logo} alt="FEUGO Logo" className={`h-10 w-auto ${isHome || isAuthPage || isSpecialPage ? '' : 'invert'}`} />
                     </Link>
                     <span className={`text-[0.45rem] font-black tracking-[0.3em] uppercase ${isHome ? 'text-black/40' : 'text-white/40'}`}>
                         PREMIUM DANCE ARTISTRY

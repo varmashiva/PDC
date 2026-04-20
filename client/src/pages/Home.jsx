@@ -68,7 +68,7 @@ const Home = () => {
                     }}
                 >
                     <CircularText 
-                        text=" PRUDHVI DANCE CLUB - DEFINING MOTION - " 
+                        text=" FEUGO DANCE CLUB - DEFINING MOTION - " 
                         radius={560} 
                         fill="#000000"
                     />
@@ -165,7 +165,7 @@ const Home = () => {
                     </a>
 
                     <p className="hidden md:block max-w-md text-center text-[#111] font-medium text-xs md:text-sm leading-[1.6] tracking-wide opacity-70 mt-6 md:mt-10">
-                        Prudhvi is driven by rhythm, passion, and an unfiltered love for dance. A constant learner and a powerful choreographer, he blends discipline with creativity.
+                        Feugo is driven by rhythm, passion, and an unfiltered love for dance. A constant learner and a powerful choreographer, he blends discipline with creativity.
                     </p>
                 </motion.div>
 

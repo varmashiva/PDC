@@ -206,7 +206,7 @@ const PreviousWorkshops = () => {
             {/* Vertical Label */}
             <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:block">
                 <span className="text-[0.5rem] font-bold text-black/10 tracking-[1em] uppercase -rotate-90 origin-center whitespace-nowrap">
-                    PDC ARCHIVED SESSIONS
+                    FEUGO ARCHIVED SESSIONS
                 </span>
             </div>
         </section>

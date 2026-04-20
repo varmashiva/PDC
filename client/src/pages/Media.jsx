@@ -10,7 +10,7 @@ const Media = () => {
             {/* 1. ARCHITECTURAL BACKGROUND ELEMENTS */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-20">
                 <h2 className="absolute top-[10%] -left-[5%] text-[20vw] font-black text-white/5 uppercase leading-none italic select-none">
-                    PDC
+                    FEUGO
                 </h2>
                 <h2 className="absolute bottom-[10%] -right-[5%] text-[20vw] font-black text-white/5 uppercase leading-none italic select-none">
                     ARCHIVE
@@ -72,7 +72,7 @@ const Media = () => {
                                 </div>
                                 <div className="space-y-1">
                                     <p className="text-[0.5rem] font-bold text-white/20 uppercase">Legacy</p>
-                                    <p className="text-[0.65rem] font-black text-white uppercase">PDC_V1</p>
+                                    <p className="text-[0.65rem] font-black text-white uppercase">FEUGO_V1</p>
                                 </div>
                             </div>
                         </div>

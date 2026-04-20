@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="flex flex-col">
           <h2 className="text-[1.8rem] sm:text-[3rem] md:text-[4rem] font-black leading-[0.9] tracking-tighter flex flex-col uppercase italic"
               style={{ fontFamily: '"Outfit", sans-serif' }}>
-            <span>Prudhvi</span>
+            <span>Feugo</span>
             <span className="ml-[0.1em]">Dance Club</span>
           </h2>
         </div>
@@ -58,7 +58,7 @@ const Footer = () => {
             </a>
           </div>
           <p className="mt-4 text-[0.65rem] md:text-[0.7rem] font-bold tracking-widest uppercase opacity-80">
-            ©2026, PRUDHVI DANCE CLUB
+            ©2026, FEUGO DANCE CLUB
           </p>
         </div>
 

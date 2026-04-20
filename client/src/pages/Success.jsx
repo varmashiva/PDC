@@ -23,7 +23,7 @@ const Success = () => {
         const doc = new jsPDF();
         doc.setFont("helvetica", "bold");
         doc.setFontSize(22);
-        doc.text("PDC Workshop Receipt", 20, 30);
+        doc.text("FEUGO Workshop Receipt", 20, 30);
         
         doc.setFontSize(12);
         doc.setFont("helvetica", "normal");

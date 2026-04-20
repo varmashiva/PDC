@@ -9,7 +9,7 @@ const reviews = [
     {
         name: "Aarav Sharma",
         role: "Professional Dancer",
-        text: "The workshops at PDC completely transformed my understanding of movement. The intensity and precision are on another level.",
+        text: "The workshops at FEUGO completely transformed my understanding of movement. The intensity and precision are on another level.",
         title: "TRANSFORMATIVE EXPERIENCE"
     },
     {
@@ -27,7 +27,7 @@ const reviews = [
     {
         name: "Sanya Gupta",
         role: "Movement Coach",
-        text: "PDC isn't just a workshop series; it's a paradigm shift for anyone serious about the motion arts.",
+        text: "FEUGO isn't just a workshop series; it's a paradigm shift for anyone serious about the motion arts.",
         title: "A PARADIGM SHIFT"
     }
 ];
@@ -145,7 +145,7 @@ const ReviewsSection = () => {
             {/* Section Title */}
             <div className="absolute top-12 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none">
                 <span className="text-[0.65rem] font-bold tracking-[0.4em] text-black uppercase mb-2 block">
-                    [ PDC COMMUNITY FEEDBACK ]
+                    [ FEUGO COMMUNITY FEEDBACK ]
                 </span>
             </div>
 

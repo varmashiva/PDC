@@ -30,6 +30,7 @@ const io = new Server(server, {
                 'http://localhost:5178',
                 'https://pdc-7irb.onrender.com',
                 'https://pdc-zeta.vercel.app',
+                'https://feugo-dance.vercel.app',
                 process.env.CLIENT_URL
             ].filter(Boolean);
             if (!origin || allowedOrigins.includes(origin)) {
@@ -55,6 +56,7 @@ const allowedOrigins = [
     'http://localhost:5178',
     'https://pdc-7irb.onrender.com',
     'https://pdc-zeta.vercel.app',
+    'https://feugo-dance.vercel.app',
     process.env.CLIENT_URL
 ].filter(Boolean);
 
@@ -78,7 +80,7 @@ let activeUsers = 0;
 io.on('connection', (socket) => {
     activeUsers++;
     io.emit('activeUsers', activeUsers);
-    
+
     socket.on('disconnect', () => {
         activeUsers--;
         io.emit('activeUsers', activeUsers);

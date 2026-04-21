@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, getProfile, getTotalUsers, updateProfile, getAllUsers } = require('../controllers/authController');
+const { registerUser, loginUser, getProfile, getTotalUsers, updateProfile, getAllUsers, updateUserRole } = require('../controllers/authController');
 const { protect, admin } = require('../middleware/authMiddleware');
 const passport = require('passport');
 
@@ -22,5 +22,6 @@ router.get('/profile', protect, getProfile);
 router.put('/profile', protect, updateProfile);
 router.get('/users/count', protect, admin, getTotalUsers);
 router.get('/users', protect, admin, getAllUsers);
+router.put('/users/:id/role', protect, admin, updateUserRole);
 
 module.exports = router;

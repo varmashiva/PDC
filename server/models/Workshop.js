@@ -9,6 +9,7 @@ const workshopSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     image: { type: String, required: true },
     seats: { type: Number, required: true },
+    memberDiscount: { type: Number, default: 0 },
     status: { type: String, default: 'active', enum: ['active', 'completed'] },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 }, { timestamps: true });

@@ -113,4 +113,31 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getProfile, generateToken, getTotalUsers, updateProfile, getAllUsers };
+// @desc    Update user role (Admin)
+// @route   PUT /api/auth/users/:id/role
+const updateUserRole = async (req, res) => {
+    try {
+        const { role } = req.body;
+        if (!['user', 'admin', 'member'].includes(role)) {
+            return res.status(400).json({ message: 'Invalid role' });
+        }
+
+        const user = await User.findById(req.params.id);
+        if (user) {
+            user.role = role;
+            const updatedUser = await user.save();
+            res.json({
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                role: updatedUser.role,
+            });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { registerUser, loginUser, getProfile, generateToken, getTotalUsers, updateProfile, getAllUsers, updateUserRole };

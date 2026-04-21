@@ -47,10 +47,10 @@ const getWorkshopById = async (req, res) => {
 // @desc    Create workshop
 // @route   POST /api/workshops
 const createWorkshop = async (req, res) => {
-    const { title, description, featuredDescription, date, time, price, image, seats } = req.body;
+    const { title, description, featuredDescription, date, time, price, image, seats, memberDiscount } = req.body;
     try {
         const workshop = await Workshop.create({
-            title, description, featuredDescription, date, time, price, image, seats,
+            title, description, featuredDescription, date, time, price, image, seats, memberDiscount,
             createdBy: req.user._id
         });
         req.app.get('io').emit('newWorkshop', workshop);
@@ -74,6 +74,7 @@ const updateWorkshop = async (req, res) => {
             workshop.price = req.body.price || workshop.price;
             workshop.image = req.body.image || workshop.image;
             workshop.seats = req.body.seats || workshop.seats;
+            workshop.memberDiscount = req.body.memberDiscount !== undefined ? req.body.memberDiscount : workshop.memberDiscount;
             workshop.status = req.body.status || workshop.status;
             const updatedWorkshop = await workshop.save();
             req.app.get('io').emit('workshopUpdated', updatedWorkshop);

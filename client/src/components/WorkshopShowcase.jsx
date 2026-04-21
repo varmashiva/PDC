@@ -5,12 +5,16 @@ import socket from '../services/socket';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 import Loader from './Loader';
 
 const WorkshopShowcaseSnippet = ({ workshop, index }) => {
+    const { user } = useAuth();
+    const isMember = user?.role === 'member';
+
     const getOptimizedImageUrl = (url) => {
         if (!url) return '';
         if (url.includes('cloudinary.com')) {
@@ -42,9 +46,23 @@ const WorkshopShowcaseSnippet = ({ workshop, index }) => {
                     <div>
                         <div className="flex justify-between items-start mb-4">
                             <span className="text-[0.65rem] font-bold tracking-[0.2em] text-[#ff1a1a] uppercase">
-                                [ LATEST WORKSHOP ]
+                                {isMember && workshop.memberDiscount > 0 ? '[ MEMBER RATE APPLIED ]' : '[ LATEST WORKSHOP ]'}
                             </span>
-                            <span className="text-2xl font-black font-['Outfit'] text-white">₹{workshop.price}</span>
+                            <div className="flex flex-col items-end">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-2xl font-black font-['Outfit'] text-white">
+                                        ₹{isMember ? workshop.price * (1 - (workshop.memberDiscount || 0) / 100) : workshop.price}
+                                    </span>
+                                    {isMember && workshop.memberDiscount > 0 && (
+                                        <span className="text-sm font-bold text-white/30 line-through decoration-[#ff1a1a]">₹{workshop.price}</span>
+                                    )}
+                                </div>
+                                {isMember && workshop.memberDiscount > 0 && (
+                                    <span className="text-[0.5rem] font-black text-[#00ff9d] uppercase tracking-widest mt-1">
+                                        {workshop.memberDiscount}% Exclusive Advantage
+                                    </span>
+                                )}
+                            </div>
                         </div>
                         <h3 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-black font-['Outfit'] uppercase leading-none tracking-tighter mb-2 md:mb-4 text-white group-hover:text-[#ff1a1a] transition-colors duration-300">
                             {workshop.title}

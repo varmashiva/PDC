@@ -5,7 +5,7 @@ const User = require('../models/User');
 // @desc    Create new booking
 // @route   POST /api/bookings
 const createBooking = async (req, res) => {
-    const { workshopId, paymentId } = req.body;
+    const { workshopId, paymentId, amountPaid } = req.body;
     try {
         const workshop = await Workshop.findById(workshopId);
         if (!workshop) return res.status(404).json({ message: 'Workshop not found' });
@@ -16,6 +16,7 @@ const createBooking = async (req, res) => {
             userId: req.user._id,
             workshopId,
             paymentId,
+            amountPaid,
             status: 'completed'
         });
 
@@ -69,6 +70,7 @@ const createManualBooking = async (req, res) => {
             userId: user._id,
             workshopId,
             paymentId: `manual_${Date.now()}`,
+            amountPaid: workshop.price,
             status: 'completed'
         });
 

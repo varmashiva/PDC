@@ -30,6 +30,11 @@ const WorkshopDetails = () => {
         fetchWorkshop();
     }, [id]);
 
+    const isMember = user?.role === 'member';
+    const discountedPrice = isMember 
+        ? workshop?.price * (1 - (workshop?.memberDiscount || 0) / 100) 
+        : workshop?.price;
+
     const handleBooking = async () => {
         if (!user) {
             toast.error('Please login to book');
@@ -38,7 +43,7 @@ const WorkshopDetails = () => {
         }
 
         try {
-            const { data: order } = await api.post('/payments/order', { amount: workshop.price });
+            const { data: order } = await api.post('/payments/order', { amount: discountedPrice });
             const options = {
                 key: import.meta.env.VITE_RAZORPAY_KEY,
                 amount: order.amount,
@@ -51,7 +56,8 @@ const WorkshopDetails = () => {
                         await api.post('/payments/verify', response);
                         const { data: booking } = await api.post('/bookings', {
                             workshopId: workshop._id,
-                            paymentId: response.razorpay_payment_id
+                            paymentId: response.razorpay_payment_id,
+                            amountPaid: discountedPrice
                         });
                         toast.success('Workshop booked successfully!');
                         navigate('/success', { state: { booking: { booking, workshop, user } } });
@@ -157,8 +163,18 @@ const WorkshopDetails = () => {
                                 <div className="bg-[#111] p-10 rounded-2xl text-white relative overflow-hidden group">
                                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-4">
                                         <div>
-                                            <p className="text-[0.6rem] font-bold text-white/40 uppercase tracking-[0.2em] mb-1">TOTAL INVESTMENT</p>
-                                            <p className="text-5xl font-black italic font-['Outfit'] tracking-tighter">₹{workshop.price}</p>
+                                            <p className="text-[0.6rem] font-bold text-white/40 uppercase tracking-[0.2em] mb-1">
+                                                {isMember ? 'MEMBER RATE (DISCOUNT APPLIED)' : 'TOTAL INVESTMENT'}
+                                            </p>
+                                            <div className="flex items-baseline gap-3">
+                                                <p className="text-5xl font-black italic font-['Outfit'] tracking-tighter">₹{discountedPrice}</p>
+                                                {isMember && workshop.memberDiscount > 0 && (
+                                                    <p className="text-sm font-bold text-white/30 line-through tracking-tighter decoration-[#ff1a1a]">₹{workshop.price}</p>
+                                                )}
+                                            </div>
+                                            {isMember && workshop.memberDiscount > 0 && (
+                                                <p className="text-[0.55rem] font-black text-[#00ff9d] uppercase tracking-[0.2em] mt-1">Exclusive {workshop.memberDiscount}% Member Advantage</p>
+                                            )}
                                         </div>
                                         
                                         <button 

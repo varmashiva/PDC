@@ -22,13 +22,14 @@ const Dashboard = () => {
     const [activeUsers, setActiveUsers] = useState(0); 
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('workshops');
+    const [userSearchTerm, setUserSearchTerm] = useState('');
 
     // Modal & Form States
     const [showModal, setShowModal] = useState(false);
     const [editingWorkshop, setEditingWorkshop] = useState(null);
     const [formData, setFormData] = useState({
         title: '', description: '', featuredDescription: '', 
-        date: '', time: '', price: '', seats: '', image: null
+        date: '', time: '', price: '', seats: '', memberDiscount: 0, image: null
     });
     const [uploading, setUploading] = useState(false);
     const [workshopToDelete, setWorkshopToDelete] = useState(null);
@@ -58,6 +59,34 @@ const Dashboard = () => {
             setLoading(false);
         }
     };
+
+    const handleRoleChange = async (userId, newRole) => {
+        try {
+            await api.put(`/auth/users/${userId}/role`, { role: newRole });
+            setUsersList(prev => prev.map(u => u._id === userId ? { ...u, role: newRole } : u));
+            toast.success(`Role updated: ${newRole.toUpperCase()}`);
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to update role');
+        }
+    };
+
+    const filteredUsers = React.useMemo(() => {
+        if (!userSearchTerm.trim()) return usersList;
+        
+        const term = userSearchTerm.toLowerCase();
+        // 1. Filter by partial match on email or name
+        const matches = usersList.filter(u => 
+            u.email?.toLowerCase().includes(term) || 
+            u.name?.toLowerCase().includes(term)
+        );
+        
+        // 2. Sort so that exact email match (case insensitive) comes first
+        return [...matches].sort((a, b) => {
+            if (a.email?.toLowerCase() === term) return -1;
+            if (b.email?.toLowerCase() === term) return 1;
+            return 0;
+        });
+    }, [usersList, userSearchTerm]);
 
     useEffect(() => {
         if (user) fetchData();
@@ -119,7 +148,7 @@ const Dashboard = () => {
             }
             setShowModal(false);
             setEditingWorkshop(null);
-            setFormData({ title: '', description: '', featuredDescription: '', date: '', time: '', price: '', seats: '', image: null });
+            setFormData({ title: '', description: '', featuredDescription: '', date: '', time: '', price: '', seats: '', memberDiscount: 0, image: null });
         } catch (error) {
             toast.error(error.response?.data?.message || 'Action failed');
         } finally {
@@ -222,7 +251,7 @@ const Dashboard = () => {
                             {/* KPI Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                                 <StatCard icon={<Activity />} title="Live Presence" value={activeUsers} sub={`${totalUsers} Total Accounts`} />
-                                <StatCard icon={<IndianRupee />} title="Total Revenue" value={`₹${allBookings.reduce((acc, b) => acc + (b.workshopId?.price || 0), 0).toLocaleString()}`} color="text-[#00ff9d]" />
+                                <StatCard icon={<IndianRupee />} title="Total Revenue" value={`₹${allBookings.reduce((acc, b) => acc + (b.amountPaid || 0), 0).toLocaleString()}`} color="text-[#00ff9d]" />
                                 <StatCard icon={<Calendar />} title="Total Bookings" value={allBookings.length} />
                                 <StatCard icon={<Users />} title="Conversion" value="64%" trend="+12%" />
                             </div>
@@ -238,7 +267,7 @@ const Dashboard = () => {
                                             <p className="text-[0.7rem] font-black uppercase truncate">{b.userId?.name}</p>
                                             <p className="text-[0.6rem] text-white/30 uppercase font-bold tracking-tighter truncate">{b.workshopId?.title}</p>
                                         </div>
-                                        <span className="text-[0.6rem] font-black text-[#00ff9d]">+₹{b.workshopId?.price}</span>
+                                        <span className="text-[0.6rem] font-black text-[#00ff9d]">+₹{b.amountPaid || b.workshopId?.price}</span>
                                     </div>
                                 ))}
                             </div>
@@ -289,6 +318,27 @@ const Dashboard = () => {
                     {/* USERS CONTENT */}
                     {activeTab === 'users' && isAdmin && (
                         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                            
+                            {/* Search bar specifically for users */}
+                            <div className="relative group max-w-xl">
+                                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#ff1a1a] transition-all" size={20} />
+                                <input 
+                                    type="text" 
+                                    placeholder="LOCATE USER BY EMAIL ADDRESS..." 
+                                    value={userSearchTerm}
+                                    onChange={(e) => setUserSearchTerm(e.target.value)}
+                                    className="w-full bg-white/5 border border-white/5 rounded-3xl pl-16 pr-8 py-6 text-[0.7rem] font-black uppercase tracking-[0.2em] text-white focus:border-[#ff1a1a]/30 transition-all outline-none placeholder:text-white/10"
+                                />
+                                {userSearchTerm && (
+                                    <button 
+                                        onClick={() => setUserSearchTerm('')}
+                                        className="absolute right-6 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors"
+                                    >
+                                        <X size={16} />
+                                    </button>
+                                )}
+                            </div>
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <StatCard icon={<Activity />} title="Live Presence" value={activeUsers} sub="Connected Now" color="text-[#00ff9d]" />
                                 <StatCard icon={<Users />} title="Total Base" value={usersList.length} sub="Registered Accounts" />
@@ -305,8 +355,8 @@ const Dashboard = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-white/5">
-                                        {usersList.map(u => (
-                                            <tr key={u._id} className="hover:bg-white/[0.01] transition-colors">
+                                        {filteredUsers.map(u => (
+                                            <tr key={u._id} className={`hover:bg-white/[0.01] transition-colors ${u.email?.toLowerCase() === userSearchTerm.toLowerCase() ? 'bg-[#ff1a1a]/5' : ''}`}>
                                                 <td className="px-8 py-6">
                                                     <div className="flex items-center gap-3">
                                                         <div className="w-8 h-8 rounded-full bg-[#ff1a1a]/10 flex items-center justify-center text-[#ff1a1a] text-[0.6rem] font-black">
@@ -319,15 +369,32 @@ const Dashboard = () => {
                                                     <p className="text-[0.6rem] text-white/30 font-bold tracking-widest uppercase truncate max-w-[200px]">{u.email}</p>
                                                 </td>
                                                 <td className="px-8 py-6">
-                                                    <span className={`inline-block px-3 py-1 rounded-full text-[0.55rem] font-black tracking-widest uppercase ${u.role === 'admin' ? 'bg-[#ff1a1a]/10 text-[#ff1a1a]' : 'bg-white/5 text-white/40'}`}>
-                                                        {u.role}
-                                                    </span>
+                                                    <select 
+                                                        value={u.role}
+                                                        onChange={(e) => handleRoleChange(u._id, e.target.value)}
+                                                        className={`appearance-none bg-transparent px-3 py-1.5 rounded-full text-[0.55rem] font-black tracking-[0.2em] uppercase cursor-pointer transition-all border border-transparent hover:border-white/10 outline-none
+                                                            ${u.role === 'admin' ? 'bg-[#ff1a1a]/10 text-[#ff1a1a]' : 
+                                                              u.role === 'member' ? 'bg-[#00ff9d]/10 text-[#00ff9d]' : 
+                                                              'bg-white/5 text-white/40'}
+                                                        `}
+                                                    >
+                                                        <option value="user" className="bg-[#0a0a0a] text-white/40">User</option>
+                                                        <option value="member" className="bg-[#0a0a0a] text-[#00ff9d]">Member</option>
+                                                        <option value="admin" className="bg-[#0a0a0a] text-[#ff1a1a]">Admin</option>
+                                                    </select>
                                                 </td>
                                                 <td className="px-8 py-6 text-right">
                                                     <p className="text-[0.65rem] font-bold text-white/50">{new Date(u.createdAt).toLocaleDateString()}</p>
                                                 </td>
                                             </tr>
                                         ))}
+                                        {filteredUsers.length === 0 && (
+                                            <tr>
+                                                <td colSpan="4" className="px-8 py-12 text-center">
+                                                    <p className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-white/20">No matching users detected in the lattice</p>
+                                                </td>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -408,8 +475,9 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-6">
-                                    <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-3 gap-4">
                                         <Input label="Price (₹)" type="number" value={formData.price} onChange={v => setFormData({...formData, price: v})} />
+                                        <Input label="Member Disc %" type="number" value={formData.memberDiscount} onChange={v => setFormData({...formData, memberDiscount: v})} />
                                         <Input label="Slots" type="number" value={formData.seats} onChange={v => setFormData({...formData, seats: v})} />
                                     </div>
                                     <div className="space-y-2">
@@ -505,8 +573,14 @@ const StatCard = ({ icon, title, value, sub, color = "text-white", trend }) => (
 
 const Input = ({ label, type = "text", value, onChange, placeholder }) => (
     <div className="space-y-2">
-        <label className="text-[0.6rem] font-black uppercase tracking-widest text-white/30 ml-2">{label}</label>
-        <input type={type} placeholder={placeholder} value={value} onChange={e => onChange(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-xs font-bold uppercase outline-none focus:border-[#ff1a1a] transition-all" />
+        <label className="block h-4 text-[0.6rem] font-black uppercase tracking-widest text-white/30 ml-2">{label}</label>
+        <input 
+            type={type} 
+            placeholder={placeholder} 
+            value={value} 
+            onChange={e => onChange(e.target.value)} 
+            className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-xs font-bold uppercase outline-none focus:border-[#ff1a1a] transition-all" 
+        />
     </div>
 );
 

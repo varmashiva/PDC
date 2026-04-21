@@ -17,8 +17,12 @@ const getWorkshops = async (req, res) => {
             
             if (ws.status !== 'completed' && wsDate < now) {
                 ws.status = 'completed';
-                await ws.save();
-                updated = true;
+                try {
+                    await ws.save();
+                    updated = true;
+                } catch (saveError) {
+                    console.error('Failed to auto-update workshop status:', saveError);
+                }
             }
         }
         

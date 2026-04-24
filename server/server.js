@@ -28,7 +28,7 @@ const io = new Server(server, {
                 'http://localhost:5176',
                 'http://localhost:5177',
                 'http://localhost:5178',
-                'https://pdc-7irb.onrender.com',
+                'https://pdc-jvnj.onrender.com',
                 'https://pdc-zeta.vercel.app',
                 'https://feugo-dance.vercel.app',
                 process.env.CLIENT_URL
@@ -54,7 +54,7 @@ const allowedOrigins = [
     'http://localhost:5176',
     'http://localhost:5177',
     'http://localhost:5178',
-    'https://pdc-7irb.onrender.com',
+    'https://pdc-jvnj.onrender.com',
     'https://pdc-zeta.vercel.app',
     'https://feugo-dance.vercel.app',
     process.env.CLIENT_URL

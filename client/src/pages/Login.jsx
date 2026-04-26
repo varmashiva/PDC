@@ -45,7 +45,8 @@ const Login = () => {
     };
 
     const handleGoogleLogin = () => {
-        window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
+        const baseURL = import.meta.env.VITE_API_URL || 'https://pdc-jvnj.onrender.com/api';
+        window.location.href = `${baseURL}/auth/google`;
     };
 
     return (

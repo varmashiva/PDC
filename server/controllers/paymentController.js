@@ -20,7 +20,8 @@ const createOrder = async (req, res) => {
         const order = await instance.orders.create(options);
         res.json(order);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Razorpay Order Error:", error);
+        res.status(500).json({ message: error.message || error });
     }
 };
 

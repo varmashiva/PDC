@@ -1,82 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
-  const [isHovering, setIsHovering] = useState(false);
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
-    const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const move = (e) => setPos({ x: e.clientX, y: e.clientY });
+    const over = (e) => {
+      const el = e.target;
+      setHovering(
+        el.tagName === 'A' || el.tagName === 'BUTTON' ||
+        !!el.closest('a') || !!el.closest('button') ||
+        window.getComputedStyle(el).cursor === 'pointer'
+      );
     };
-
-    const handleMouseOver = (e) => {
-      if (
-        e.target.tagName.toLowerCase() === 'a' ||
-        e.target.tagName.toLowerCase() === 'button' ||
-        e.target.closest('a') ||
-        e.target.closest('button') ||
-        window.getComputedStyle(e.target).cursor === 'pointer'
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
-    };
-
-    window.addEventListener('mousemove', updateMousePosition);
-    window.addEventListener('mouseover', handleMouseOver);
-
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseover', over);
     return () => {
-      window.removeEventListener('mousemove', updateMousePosition);
-      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseover', over);
     };
   }, []);
 
-  const variants = {
-    default: {
-      x: mousePosition.x - 16,
-      y: mousePosition.y - 16,
-      scale: 1,
-    },
-    hover: {
-      x: mousePosition.x - 24,
-      y: mousePosition.y - 24,
-      scale: 1.5,
-      backgroundColor: "rgba(0, 0, 0, 0.05)",
-    }
-  };
-
-  const dotVariants = {
-    default: {
-      x: mousePosition.x - 4,
-      y: mousePosition.y - 4,
-      scale: 1
-    },
-    hover: {
-      x: mousePosition.x - 4,
-      y: mousePosition.y - 4,
-      scale: 0.5
-    }
-  };
-
   return (
-    <>
-      {/* Outer Dotted Circle */}
-      <motion.div
-        variants={variants}
-        animate={isHovering ? "hover" : "default"}
-        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] border-[1.5px] border-black border-dotted shadow-[0_0_4px_rgba(255,255,255,0.5)]"
-      />
-      
-      {/* Inner Dot */}
-      <motion.div
-        variants={dotVariants}
-        animate={isHovering ? "hover" : "default"}
-        transition={{ type: "tween", ease: "linear", duration: 0 }}
-        className="fixed top-0 left-0 w-2 h-2 bg-black rounded-full pointer-events-none z-[10000] shadow-[0_0_2px_rgba(255,255,255,0.8)]"
-      />
-    </>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: hovering ? 10 : 6,
+        height: hovering ? 10 : 6,
+        borderRadius: '50%',
+        backgroundColor: '#111',
+        transform: `translate(${pos.x - (hovering ? 5 : 3)}px, ${pos.y - (hovering ? 5 : 3)}px)`,
+        pointerEvents: 'none',
+        zIndex: 9999,
+        transition: 'width 0.15s, height 0.15s, opacity 0.15s',
+        opacity: 0.85,
+      }}
+    />
   );
 }
